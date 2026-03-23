@@ -1,41 +1,81 @@
 # ai-agent-test-platform 实操记录
 
-这部分内容围绕 [`ai-agent-test-platform`](https://github.com/ljxpython/ai-agent-test-platform) 的实操、验证和复盘展开，重点不是重复贴源码，而是沉淀一套可以反复复用的方法：
+这部分内容围绕 [`ai-agent-test-platform`](https://github.com/ljxpython/ai-agent-test-platform) 的实操、验证和复盘展开，重点不是重复贴源码，而是把一套可以反复复用的工作方式沉淀下来。
 
-- 如何让 AI 先读懂现有代码，再开始开发
-- 如何把需求拆成可执行的提示词和阶段目标
-- 如何在开发完成后继续做验证、修复和复盘
+和根目录 README 的区别是：
 
-## 快速导航
+- 根 README 负责说明项目版图、仓库关系和演进脉络
+- 这里负责说明具体怎么做、怎么验证、怎么复盘
+
+如果说根 README 讲的是“项目地图”，这里讲的就是“落地路径”。
+
+## 这组记录主要解决什么问题
+
+当前这批文档主要围绕三个核心问题展开：
+
+- 怎么让 AI 先读懂现有代码，再开始开发和接入
+- 怎么把需求拆成可执行的提示词、阶段目标和交付路径
+- 怎么在开发完成后继续做验证、修复和复盘，而不是只停留在“功能写完”
+
+## 快速入口
 
 - 返回仓库首页：[`../README.md`](../README.md)
-- 项目源码：<https://github.com/ljxpython/ai-agent-test-platform>
-- 部署入口：[`20260323_deployment_environment.md`](./20260323_deployment_environment.md)
+- 主线项目源码：<https://github.com/ljxpython/ai-agent-test-platform>
+- 部署与验证入口：[`20260323_deployment_environment.md`](./20260323_deployment_environment.md)
 - 单智能体案例：[`20260312_texttosql_rd.md`](./20260312_texttosql_rd.md)
 - 多智能体案例：[`20260314_requirement_agent_rd.md`](./20260314_requirement_agent_rd.md)
 
-## 文档索引
+## 实践主线
 
-| 日期 | 主题 | 适合阅读的人 | 你能得到什么 | 文档 |
-|---|---|---|---|---|
-| 2026-03-23 | AI 辅助部署环境 | 第一次接触项目，想快速跑通环境的人 | 一套两轮对话完成部署的操作路径和验证入口 | [`20260323_deployment_environment.md`](./20260323_deployment_environment.md) |
-| 2026-03-14 | 需求分析多智能体 | 想把上传文档、解析、评审、落库串起来的人 | 一个复杂业务场景下的多智能体拆解思路和边界判断 | [`20260314_requirement_agent_rd.md`](./20260314_requirement_agent_rd.md) |
-| 2026-03-12 | Text-to-SQL 智能体 | 想先做一个最小可运行 Agent Demo 的人 | 从阅读代码、讨论方案到图表 MCP 接入的完整案例 | [`20260312_texttosql_rd.md`](./20260312_texttosql_rd.md) |
+这组记录目前可以理解成一条从“先跑起来”到“做复杂场景”的连续主线：
 
-## 推荐阅读路径
+| 阶段 | 主题 | 你能得到什么 | 文档 |
+|---|---|---|---|
+| 第一步 | 部署与验证基线 | 一套用 AI 辅助完成环境部署、问题排查和结果验证的路径 | [`20260323_deployment_environment.md`](./20260323_deployment_environment.md) |
+| 第二步 | 单智能体最小闭环 | 一个从阅读代码、讨论方案到接入图表 MCP 的最小可运行案例 | [`20260312_texttosql_rd.md`](./20260312_texttosql_rd.md) |
+| 第三步 | 复杂业务多智能体 | 一个把上传文档、解析、评审、落库串起来的复杂场景拆解方案 | [`20260314_requirement_agent_rd.md`](./20260314_requirement_agent_rd.md) |
 
-1. 先看部署环境，避免还没读案例就卡在本地启动。
-2. 再看 Text-to-SQL，这是最适合入门的单智能体案例。
-3. 最后看需求分析智能体，这篇更偏复杂业务设计和后续演进。
+## 按目标阅读
 
-## 这组记录怎么配合看
+### 如果你只想先把项目跑起来
 
-- 想快速上手：先部署，再看 Text-to-SQL。
-- 想学拆需求：直接看需求分析多智能体。
-- 想做项目复盘：三篇按时间顺序看，能看到从部署到接入再到复杂场景设计的完整脉络。
+1. 先看 [`20260323_deployment_environment.md`](./20260323_deployment_environment.md)。
+2. 把环境、依赖和验证入口先跑通。
+3. 跑通之后再决定要继续看单智能体，还是直接看复杂场景。
 
-## 说明
+### 如果你想看一个最小可行 Agent 是怎么接进平台的
+
+1. 先补一眼部署文档，至少知道环境怎么起。
+2. 再看 [`20260312_texttosql_rd.md`](./20260312_texttosql_rd.md)。
+3. 这篇最适合用来理解“AI 先读代码，再讨论方案，再落到实现”的基本节奏。
+
+### 如果你想看复杂业务怎么拆成多智能体
+
+1. 先确认自己已经知道项目的基础运行方式。
+2. 然后直接看 [`20260314_requirement_agent_rd.md`](./20260314_requirement_agent_rd.md)。
+3. 这篇更关注复杂业务流转、职责边界和后续演进，不是入门案例。
+
+### 如果你想做完整复盘
+
+按下面顺序看最顺：
+
+1. [`20260323_deployment_environment.md`](./20260323_deployment_environment.md)
+2. [`20260312_texttosql_rd.md`](./20260312_texttosql_rd.md)
+3. [`20260314_requirement_agent_rd.md`](./20260314_requirement_agent_rd.md)
+
+这样能看到从部署准备、单点能力接入，到复杂场景设计的完整脉络。
+
+## 这组文档和主线项目的关系
+
+- 主线项目 [`ai-agent-test-platform`](https://github.com/ljxpython/ai-agent-test-platform) 承载真实工程代码。
+- 这里不重复贴源码，而是补源码仓库里不适合展开写的上下文。
+- 这些记录更偏“为什么这样做、过程中踩了什么坑、后面还能怎么优化”。
+
+如果你是第一次进这个作品集仓库，建议先看根目录 [`../README.md`](../README.md) 了解整体项目关系，再回到这里按阅读目标进入具体文档。
+
+## 记录约定
 
 - 图片统一放在 `assets/` 目录，按文档内引用使用。
-- 这些内容是实操记录和复盘，不是完整源码镜像。
-- 如果后续继续新增案例，建议沿用同样的命名方式：`YYYYMMDD_主题.md`。
+- 文档内容以实操记录和复盘为主，不是完整源码镜像。
+- 后续如果继续新增案例，建议沿用 `YYYYMMDD_主题.md` 的命名方式。
+- 新增文档时，优先补齐它在“实践主线”中的位置，避免索引页重新变成一堆散链接。
