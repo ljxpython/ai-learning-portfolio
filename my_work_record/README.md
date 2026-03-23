@@ -6,6 +6,14 @@
 - 如何把需求拆成可执行的提示词和阶段目标
 - 如何在开发完成后继续做验证、修复和复盘
 
+## 快速导航
+
+- 返回仓库首页：[`../README.md`](../README.md)
+- 项目源码：<https://github.com/ljxpython/ai-agent-test-platform>
+- 部署入口：[`20260323_deployment_environment.md`](./20260323_deployment_environment.md)
+- 单智能体案例：[`20260312_texttosql_rd.md`](./20260312_texttosql_rd.md)
+- 多智能体案例：[`20260314_requirement_agent_rd.md`](./20260314_requirement_agent_rd.md)
+
 ## 文档索引
 
 | 日期 | 主题 | 适合阅读的人 | 你能得到什么 | 文档 |
@@ -19,6 +27,12 @@
 1. 先看部署环境，避免还没读案例就卡在本地启动。
 2. 再看 Text-to-SQL，这是最适合入门的单智能体案例。
 3. 最后看需求分析智能体，这篇更偏复杂业务设计和后续演进。
+
+## 这组记录怎么配合看
+
+- 想快速上手：先部署，再看 Text-to-SQL。
+- 想学拆需求：直接看需求分析多智能体。
+- 想做项目复盘：三篇按时间顺序看，能看到从部署到接入再到复杂场景设计的完整脉络。
 
 ## 说明
 

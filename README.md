@@ -10,9 +10,10 @@
 
 ## 项目 / 实践
 
-| 名称 | 简介 | 链接 | 更新 |
-|---|---|---|---|
-| aitestlab | 从 0 到 1 搭建 AI 测试平台 | https://github.com/ljxpython/aitestlab | ![](https://img.shields.io/github/last-commit/ljxpython/aitestlab?label=last%20commit) |
+| 名称 | 简介 | 链接 | 关联记录 | 更新 |
+|---|---|---|---|---|
+| aitestlab | 从 0 到 1 搭建 AI 测试平台 | https://github.com/ljxpython/aitestlab | 暂无本地记录 | ![](https://img.shields.io/github/last-commit/ljxpython/aitestlab?label=last%20commit) |
+| ai-agent-test-platform | AI Agent 测试平台实践项目 | https://github.com/ljxpython/ai-agent-test-platform | [`my_work_record/README.md`](./my_work_record/README.md) | 手动维护 |
 
 ## 学习笔记
 
@@ -25,6 +26,12 @@
 当前新增的本地记录围绕 [`ai-agent-test-platform`](https://github.com/ljxpython/ai-agent-test-platform) 展开，主要沉淀三类内容：智能体开发、复杂场景设计、AI 辅助部署。
 
 索引入口见 [`my_work_record/README.md`](./my_work_record/README.md)。
+
+## 仓库关系
+
+- 外部项目仓库负责承载实际业务代码与完整工程结构。
+- 当前作品集仓库负责承载导航、实操记录、提示词和复盘总结。
+- 如果你想先看方法论和实践过程，从 [`my_work_record/README.md`](./my_work_record/README.md) 进入最快。
 
 | 日期 | 主题 | 内容简介 | 文档 |
 |---|---|---|---|

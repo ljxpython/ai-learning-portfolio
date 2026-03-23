@@ -3,6 +3,13 @@
 > 主题：借助 AI 助手快速完成项目部署
 > 日期：2026-03-23
 
+## 快速导航
+
+- 返回实操索引：[`README.md`](./README.md)
+- 项目源码：<https://github.com/ljxpython/ai-agent-test-platform>
+- 部署完成后看单智能体案例：[`20260312_texttosql_rd.md`](./20260312_texttosql_rd.md)
+- 想看复杂场景设计：[`20260314_requirement_agent_rd.md`](./20260314_requirement_agent_rd.md)
+
 ## 这篇文章在讲什么
 
 这篇记录的核心不是“手动部署步骤大全”，而是如何把重复、繁琐、但规则相对稳定的环境搭建工作，交给 AI 助手去执行和编排。
@@ -139,5 +146,10 @@ platform-web: http://127.0.0.1:3002
 - 文中的地址和端口是这次记录里的结果，后续以项目实际配置为准。
 - 这篇文章主要记录“AI 辅助部署”的方法论，平台其他功能后面还可以继续单独展开。
 
+## 相关阅读
+
+- 环境起来后，可以直接继续看 [`20260312_texttosql_rd.md`](./20260312_texttosql_rd.md)。
+- 如果你更关心复杂业务设计，再看 [`20260314_requirement_agent_rd.md`](./20260314_requirement_agent_rd.md)。
+- 总索引入口在 [`README.md`](./README.md)。
 
 

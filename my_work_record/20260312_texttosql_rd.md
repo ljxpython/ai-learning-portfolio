@@ -3,6 +3,13 @@
 > 主题：未来如何基于现有代码进行二开
 > 日期：2026-03-12
 
+## 快速导航
+
+- 返回实操索引：[`README.md`](./README.md)
+- 项目源码：<https://github.com/ljxpython/ai-agent-test-platform>
+- 先部署环境：[`20260323_deployment_environment.md`](./20260323_deployment_environment.md)
+- 看复杂场景：[`20260314_requirement_agent_rd.md`](./20260314_requirement_agent_rd.md)
+
 ## 这篇文章解决什么问题
 
 这篇记录聚焦一个最小可运行的智能体案例：基于当前项目，快速做出一个 Text-to-SQL 服务，并把它接到前端页面里完成验证。
@@ -235,6 +242,11 @@ service_config.enable_chart_tools True 才可以，当前我想设计成直接 t
 
 核心思路不变：先吃透现有代码和架构，再让 AI 参与开发，而不是把理解工作全丢给 AI。
 
+## 相关阅读
+
+- 如果你还没搭环境，先看 [`20260323_deployment_environment.md`](./20260323_deployment_environment.md)。
+- 如果你接下来想做多智能体复杂业务，继续看 [`20260314_requirement_agent_rd.md`](./20260314_requirement_agent_rd.md)。
+- 如果你想从列表页回到总索引，入口在 [`README.md`](./README.md)。
 
 
 

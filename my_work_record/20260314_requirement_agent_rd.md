@@ -3,6 +3,13 @@
 > 主题：未来如何基于现有代码做复杂场景二开
 > 日期：2026-03-14
 
+## 快速导航
+
+- 返回实操索引：[`README.md`](./README.md)
+- 项目源码：<https://github.com/ljxpython/ai-agent-test-platform>
+- 先看部署环境：[`20260323_deployment_environment.md`](./20260323_deployment_environment.md)
+- 先看单智能体案例：[`20260312_texttosql_rd.md`](./20260312_texttosql_rd.md)
+
 ## 这篇文章在讲什么
 
 前一篇 Text-to-SQL 更偏“最小可行案例”，这一篇开始进入复杂业务：上传需求文档，自动做结构化解析，生成测试用例，进行评审，支持人工反馈后再落库。
@@ -127,3 +134,9 @@ AI 会先思考如何拆模块、怎么安排智能体职责，以及前后端�
 最终效果示意：
 
 ![image-20260315015447307](./assets/image-20260315015447307.png)
+
+## 相关阅读
+
+- 如果你还没看过最小案例，建议先补 [`20260312_texttosql_rd.md`](./20260312_texttosql_rd.md)。
+- 如果你准备先把项目跑起来，再回来看设计，先看 [`20260323_deployment_environment.md`](./20260323_deployment_environment.md)。
+- 实操总索引在 [`README.md`](./README.md)。
