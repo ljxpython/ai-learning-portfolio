@@ -1,165 +1,137 @@
+# Text-to-SQL 智能体实战：基于 ai-agent-test-platform 的最小可行案例
 
+> 主题：未来如何基于现有代码进行二开
+> 日期：2026-03-12
 
-# agent开发实战讲解--几乎全vibecoding实战
+## 这篇文章解决什么问题
 
+这篇记录聚焦一个最小可运行的智能体案例：基于当前项目，快速做出一个 Text-to-SQL 服务，并把它接到前端页面里完成验证。
 
+这次实践的重点不是“纯手写代码”，而是如何和 AI 配合，把开发过程拆成几个清晰阶段：
 
+1. 先让 AI 熟悉现有代码结构。
+2. 再给参考文档和需求，让 AI 先出设计。
+3. 设计确认后再生成代码。
+4. 最后走启动、验证、修复和前端接入。
 
+## 实战目标
 
-## 以简单的texttosql为例，讲解一下当前这个代码应该如何使用
+- 在 `runtime-service` 中新增一个 SQL Agent
+- 一期仅支持 SQLite，并内置 Chinook 示例数据库
+- 保持只读查询能力
+- 接入图表 MCP，支持可视化展示
+- 最终在平台前端完成接入和验证
 
-> 未来的你如何使用这份代码进行二开
->
-> 2026年03月12日
+## 第 1 步：先让 Agent 读懂现有代码
 
+先不要急着让 AI 直接写代码，先让它把 `apps/runtime-service` 这块的架构、入口、文档都读明白。
 
-
-### runtime-service 代码的开发案例讲解 
-
-
-
-和终端对话如下，让agent先了解一下整个代码的架构
-
-```
-你熟悉掌握apps/runtime-service下的代码和使用方式，稍后我们在这份代码上开发新的服务，读完代码后，告诉我，你学到了什么
+```text
+你熟悉掌握 apps/runtime-service 下的代码和使用方式，稍后我们在这份代码上开发新的服务，读完代码后，告诉我，你学到了什么
 ```
 
 ![image-20260312200958058](./assets/image-20260312200958058.png)
 
-
-
-这里他会阅读代码，最后理解整个代码的框架是什么样的，主要在docs文档中有相关开发文档，他会结合这来熟悉整个代码架构
+AI 会先阅读代码和文档，然后总结项目整体结构。这一步的意义很直接：如果连现有架构都没理解，就让它直接改代码，后面大概率要返工。
 
 ![image-20260312210948929](./assets/image-20260312210948929.png)
 
+## 第 2 步：给参考实现，让 AI 先讨论方案
 
+这里我选了一个简单案例，让 AI 基于 LangChain 的 SQL Agent 思路来实现，并且额外支持图表展示。
 
-这里我们用一个小🌰，让agent开发一个texttosql的服务，并且最后可视化展示，为了方便，我直接给他一个langgraph 官方的链接 
+参考文档：
 
-https://docs.langchain.com/oss/python/langchain/sql-agent 
+<https://docs.langchain.com/oss/python/langchain/sql-agent>
+
+```text
+你阅读一下这个文档：https://docs.langchain.com/oss/python/langchain/sql-agent
+我想实现一下这样的一个需求，先和我讨论应该如何做，然后我们再实现代码
+```
 
 ![image-20260312211352490](./assets/image-20260312211352490.png)
 
-
-
-和AI对话如下：
-
-```
-你阅读一下这个文档： https://docs.langchain.com/oss/python/langchain/sql-agent   我想实现一下这样的一个需求 ，先和我讨论应该如何做，然后我们再实现代码
-```
-
 ![image-20260312211530902](./assets/image-20260312211530902.png)
-
-
-
-agent回复如下：
 
 ![image-20260312212124080](./assets/image-20260312212124080.png)
 
+这一步的重点不是“让 AI 立刻开写”，而是先看它对整体方案的理解有没有跑偏。慢一点没关系，设计阶段一步一个脚印，后面反而更快。
 
+## 第 3 步：收敛第一版需求
 
-这里面大家要理解一下整体的代码架构，我们使用AI是为了提高我们的效率，如果什么都不明白，什么都交给AI，那后面做出的东西，会有大坑，我们应该和AI一起成长，这样才不会被淘汰，这是我个人的一点理解哈，大白话就是，拥抱AI，共同成长
+当 AI 对现有代码和参考文档都了解以后，就开始把第一版需求写实、写窄、写清楚。
 
-
-
-整体你需要理解的东西，你都可以在docs中自己看文档，我代码尽量的没有写的那么复杂了，正常的语言功底都可以理解我这套代码，如果你不懂，还可以问AI
-
-
-
-接下来我直接基于AI的回复继续深入讨论，把这个需求定下来
-
-
-
-```
+```text
 代码放在
 apps/runtime-service/graph_src_v2/services/sql_agent/下面
-对外注册使用langgraph.json
-我们一期先实现用例SQLite的，而且直接使用提供给你的URL里面的sqlite，后面支持MySQL pg
+对外注册使用 langgraph.json
+我们一期先实现用例 SQLite 的，而且直接使用提供给你的 URL 里面的 sqlite，后面支持 MySQL、PG
 不需要你考虑多租户
 安全策略，只允许读权限
 
-先给出一个README.md文档，告诉我接下来你如何设计
-
-
+先给出一个 README.md 文档，告诉我接下来你如何设计
 ```
 
 ![image-20260313103542381](./assets/image-20260313103542381.png)
 
-
-
-接下来我们需要详细的看下他的设计文档，和我们最初的想法是否有偏离
+设计文档出来以后，再去核对它和最初目标有没有偏离。
 
 ![image-20260313104836302](./assets/image-20260313104836302.png)
 
+## 第 4 步：补充图表 MCP 能力
 
+在第一版设计基础上，我继续把图表能力加进去，并要求它把这部分写进公共 MCP 模块。
 
-这里我还希望大家记住一个原则，慢就是快，在最开始的设计阶段，一定要一步一个脚印慢慢来
-
-
-
-```
-我们就以url = "https://storage.googleapis.com/benchmarks-artifacts/chinook/Chinook.db" 内置到代码里面，后期再考虑对外暴露能力：支持自定义MySQL pg等数据库
-
-我们在加入一个可视化展示的mcp，这个写入到公共的mcp模块中
+```python
 mcp_client = MultiServerMCPClient(
     {
         "mcp-server-chart": {
             "command": "npx",
-            # Make sure to update to the full absolute path to your math_server.py file
             "args": ["-y", "@antv/mcp-server-chart"],
             "transport": "stdio",
         }
     }
 )
+```
+
+继续补充约束：
+
+```text
+我们就以
+url = "https://storage.googleapis.com/benchmarks-artifacts/chinook/Chinook.db"
+内置到代码里面，后期再考虑对外暴露能力：支持自定义 MySQL、PG 等数据库
+
+我们再加入一个可视化展示的 MCP，这个写入到公共的 MCP 模块中
 
 其余你的方案没有问题
-再次修改README.md 
-也把这个mcp写入到代码中
-
-
-
-
+再次修改 README.md
+也把这个 MCP 写入到代码中
 ```
 
 ![image-20260313105820268](./assets/image-20260313105820268.png)
 
-
-
-agent
-
 ![image-20260313110853530](./assets/image-20260313110853530.png)
 
+## 第 5 步：让 AI 直接编写代码
 
-
-
-
-最后让AI直接编写代码，完成后总结
+设计确认后，再让 AI 直接落代码。这个过程里我基本没有手改代码，更多是在看输出、验结果、提修正意见。
 
 ![image-20260313130811743](./assets/image-20260313130811743.png)
 
-
-
-可以查看代码,这个过程我没有修改一次代码：
-
 ![image-20260313130920403](./assets/image-20260313130920403.png)
 
+## 第 6 步：启动服务并验证
 
+代码生成后，下一步就是验证。如果你自己不确定怎么启动，也可以直接反问 AI，让它给出启动方式和验证路径。
 
+当时记录的验证命令如下，具体以项目当时的目录和文档为准：
 
-
-代码已经编写完毕，我们启动服务来验证一下，如果你不懂如何启动服务，你也可以这样问一下agent `如果我想亲自验证服务，通过和前端的直连的方式来，我应该如何启动呢？` 
-
-
-
-这里我直接给出验证的命令，看下会不会报错
-
-```
-# langgraph 
+```bash
+# langgraph
 cd apps/runtime-service/
 uv run langgraph dev --config graph_src_v2/langgraph.json --port 8123 --no-browser
 
-
-# web 端口
+# web
 cd apps/runtime-web
 uv run langgraph dev --config graph_src_v2/langgraph.json --port 8123 --no-browser
 ```
@@ -168,9 +140,7 @@ uv run langgraph dev --config graph_src_v2/langgraph.json --port 8123 --no-brows
 
 ![image-20260313135424877](./assets/image-20260313135424877.png)
 
-
-
-我们需要知道graph是什么
+还需要明确 graph 名称和入口：
 
 ![image-20260313135809199](./assets/image-20260313135809199.png)
 
@@ -178,143 +148,92 @@ uv run langgraph dev --config graph_src_v2/langgraph.json --port 8123 --no-brows
 
 ![image-20260313135853293](./assets/image-20260313135853293.png)
 
-
-
-
-
-聊天对话：
+聊天过程：
 
 ![image-20260313135959314](./assets/image-20260313135959314.png)
 
-
-
+```text
+每家公司的员工有多少人，进行汇总，给出图表来展示
 ```
-每家公司的员工有多少人，进行汇总，给出图标来展示
-```
-
-
 
 ![image-20260313140326581](./assets/image-20260313140326581.png)
 
+## 第 7 步：发现问题并继续修复
 
+第一次验证时我发现一个关键问题：没有图表展示。
 
-
-
-看到这里，我发现一个问题，没有图表展示，现在我们看一下代码，是按照我的规范来完成开发，不过这里有一个问题，`if service_config.enable_chart_tools:` 这个需要为true是才能调用，因此agent本身没有加载生成图片的mcp
+回头看代码后发现，图表 MCP 的加载受 `if service_config.enable_chart_tools:` 控制。也就是说，虽然代码结构没有偏，但实际运行时 Agent 没真正拿到图表工具。
 
 ![image-20260313140921888](./assets/image-20260313140921888.png)
 
-
-
 ![image-20260313140906990](./assets/image-20260313140906990.png)
 
+于是继续和 AI 对话，让它修这个点，同时把文档规范也补上：
 
+```text
+现在修复 aget_mcp_server_chart_tools 的问题，当前默认为
+service_config.enable_chart_tools True 才可以，当前我想设计成直接 tools.append(xxxx) 这种
 
-我们继续和agent对话来让他修复这个问题
-
-```
-现在修复 aget_mcp_server_chart_tools 的问题，当前默认为service_config.enable_chart_tools True才可以，当前，我想设计成，直接tools.append(xxxx) 这种
-
-另外，在docs的相关设计规范中也再次重点说明 后续的mcp，除非特别指明，我们都采用tools.extend(xxxxx)的方式
+另外，在 docs 的相关设计规范中也再次重点说明，后续的 MCP，除非特别指明，我们都采用 tools.extend(xxxxx) 的方式
 ```
 
 ![image-20260313141813442](./assets/image-20260313141813442.png)
 
-
-
-
-
 ![image-20260313143238795](./assets/image-20260313143238795.png)
 
-我们再次验证一下
+修复后再次验证：
 
 ![image-20260313143607023](./assets/image-20260313143607023.png)
 
-现在已经有了相关数据可视化工具了，我们
-
-
-
-```
-有多少艺术家，每个艺术家有多少作品，最后生成图标，让我更容易理解
+```text
+有多少艺术家，每个艺术家有多少作品，最后生成图表，让我更容易理解
 ```
 
 ![image-20260313144515787](./assets/image-20260313144515787.png)
 
+到这里，`langgraph` 这一层的最小案例基本就完成了。
 
+## 第 8 步：接入 platform-api 和 platform-web
 
+`runtime-service` 跑通以后，平台层和前端层的接入反而简单很多。
 
+如果你要继续开发 `platform-api` 和 `platform-web`，可以先让 AI 读懂这一层代码：
 
-到现在我们langgraph 这一层基本上开发完成了，框架我开发好了，你接入的时候，几乎可以不手敲一点代码完成agent智能体开发
-
-
-
-我们把代码提交到远端
-
-![image-20260313150950079](./assets/image-20260313150950079.png)
-
-
-
-
-
-### runtime-web
-
-这一层几乎不需要我们做什么开发，只是我们调试使用的
-
-
-
-
-
-### platform-api 及 platform-web 开发
-
-这一层我们做一个简单的
-
-
-
-如果你要开发这部分代码，你可以先了解一下项目，这部分也是AI帮助你
-
-```
-熟悉掌握apps/platform-api 和apps/platform-web ,后面我们开始这部分的开发
+```text
+熟悉掌握 apps/platform-api 和 apps/platform-web，后面我们开始这部分的开发
 ```
 
+然后直接给它明确接入目标：
 
-
-
-
-在agent理解当前的代码架构下后，你只需要说，将刚才开发的SQL agent嵌入到当前页面中
-
-```
-将刚才开发的SQL agent嵌入到当前的页面，根据apps/platform-web中agent的开发的规范，使用chat页面的模板，重新生成一个页面供用户在前端使用，也在导航栏加入该SQL agent的标题
+```text
+将刚才开发的 SQL Agent 嵌入到当前的页面，根据 apps/platform-web 中 agent 的开发规范，
+使用 chat 页面的模板，重新生成一个页面供用户在前端使用，也在导航栏加入该 SQL Agent 的标题
 ```
 
-
-
-
-
-成果：
-
-理论上你能看到，如果我们仅开发一个最简单的智能体，可能只需要把langgraph这一层做好，剩下的平台和前端基本上都可以无缝接入
-
-当然，后面还会有一些复杂的场景开发，我会放在下一个案例进行说明
+实践结果说明了一件事：如果最小智能体在 `langgraph` 这一层已经设计清楚，那么平台和前端很多时候都可以顺着现有规范快速接上。
 
 ![image-20260314102006198](./assets/image-20260314102006198.png)
 
-
-
 ![image-20260314102035298](./assets/image-20260314102035298.png)
 
+## 这次实践沉淀了什么
 
-
-
+- 先读代码，再给任务，返工会少很多。
+- 先要设计文档，再让 AI 生成代码，能把风险压在前面。
+- 第一期目标一定要收窄，先把 SQLite、只读、安全边界讲清楚。
+- 工具链不要只看“写了没写”，还要看“运行时有没有真正挂上”。
+- 验证不能只停留在服务启动，要把前端直连和最终交互也走一遍。
 
 ## 后面的你拿到这套代码如何二开
 
-这次我以一个简单的案例做了讲解，从agents 到服务层最后又到前端  ， 理论的形成是总实践中不断总结出来的，我也把我的理论走过的路，又完整的给你描述了一番，希望对你有帮助
+这次案例是一个简单的 Text-to-SQL 示例，后续你完全可以替换成公司内部真实表结构继续二开，比如：
 
+- 加入更完善的 RAG
+- 优化提示词和 schema 描述
+- 把 Agent 做得更通用，适配 SQLite、MySQL、PostgreSQL
+- 把图表、检索、文档解析这些能力进一步做成可复用模块
 
-
-现在这里的texttosql是基于一个例子的，那么未来在公司内部，你就可以用真实的表进行二开 ，可以加入RAG 可以优化提示词  ，还是把这个agents变得更加通用，适配sqllite，MySQL ，pg等等数据库，核心思路还是你吃透我给出的这套代码（已经是最简单的框架，我几乎把所有复杂的python语法都去掉了，也没有进行过度的封装，希望这套代码也能帮你在coding和架构能力上更上一层楼）
-
-
+核心思路不变：先吃透现有代码和架构，再让 AI 参与开发，而不是把理解工作全丢给 AI。
 
 
 

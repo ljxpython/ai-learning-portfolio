@@ -1,161 +1,143 @@
-# ai-agent-test-platform 项目使用AI助手部署的方式介绍
+# AI 辅助部署 ai-agent-test-platform：两轮对话完成环境搭建
 
+> 主题：借助 AI 助手快速完成项目部署
+> 日期：2026-03-23
 
+## 这篇文章在讲什么
 
-## 思路
+这篇记录的核心不是“手动部署步骤大全”，而是如何把重复、繁琐、但规则相对稳定的环境搭建工作，交给 AI 助手去执行和编排。
 
-我希望`ai-agent-test-platform`这个项目，更多的是给你提供思路和参考，你也可以在这个基础上进行二次开发和封装，当前的这种架构是我经过多种架构比对下，我认为最佳的开发范式了
+对第一次接触项目的人来说，从数据库、后端、前端到模型配置，全流程走下来很容易耗掉大半天；如果边看文档边摸索，甚至一天都不一定够。这里记录的是一种更高效的方式：先给 AI 明确的部署说明，再通过两轮对话把环境拉起来。
 
+## 项目与工具
 
+- 项目地址：<https://github.com/ljxpython/ai-agent-test-platform>
+- 使用工具：Codex
 
-同样，部署环境这块，我也希望你能学习这种AI提效的方式，把常用的，复杂度低，可重复的工作，模板化，编排成AI能理解的工作流，这样就不需要每次我们都手动部署环境或者一些类似的工作
+你也可以换成别的 AI 工具，关键不在具体产品，而在于你有没有把部署步骤整理成 AI 能理解、能执行、能验证的工作流。
 
-就比如当前的这个工作，如果正常部署，从数据库到前端到后端，到各个环节配置及验证，大概需要半天的时间（这还是熟悉当前项目的情况下），对于刚接触这个项目的新手来说，要理解项目，在到部署，没有个一天更是下不来，但在AI的帮助下，两三次对话便可以，这大大的提高了我们工作的效率
+## 开始前的准备
 
+先拉取项目：
 
-
-## 工具
-
-我这里使用的是codex的最新版本，当前你也可以使用任意的AI工具，我在codex经过了多轮测试，只需要两次到三次对话，便能在BOE将环境部署起来，非常的容易，选择一款你用着顺手的方式开始吧
-
-
-
-项目地址：https://github.com/ljxpython/ai-agent-test-platform  
-
-
-
-## AI对话及过程
-
-
-
-先拉取项目
-
-```
+```bash
 git clone git@github.com:ljxpython/ai-agent-test-platform.git
 cd ai-agent-test-platform
 ```
 
 ![image-20260323110610441](./assets/image-20260323110610441.png)
 
-启动codex
+启动 Codex：
 
-```
+```bash
 codex --search --dangerously-bypass-approvals-and-sandbox
 ```
 
+## 第一次对话：让 AI 先根据部署说明跑一遍
 
+第一轮我给 AI 的话非常直接：
 
-### 第一次对话
-
-```
+```text
 阅读 `docs/ai-deployment-assistant-instruction.md` 帮我部署环境。
 ```
 
-
-
-AI agent理解后，会自己检查本地环境，然后开始部署
+AI 理解后，会先检查本地环境、读取项目里的部署说明，再开始执行部署流程。
 
 ![image-20260323110835964](./assets/image-20260323110835964.png)
 
-
-
-最终结果
+第一轮结束后，通常已经能把大部分基础工作做掉，但它会告诉你还缺什么。
 
 ![image-20260323111103553](./assets/image-20260323111103553.png)
 
+这里暴露出来的关键点是：还需要补真实模型配置，也就是推理模型和视觉模型的相关信息。真实密钥不要提交到仓库里，这种东西只应该在本地配置。
 
+## 第二次对话：补模型配置
 
-可以看到，需要我们提供真实模型的aksk
+第二轮我直接把本地可用的模型配置给它。这里的重点不是模型品牌，而是你至少要提供一套推理模型和一套视觉模型。
 
+示例格式如下：
 
-
-### 第二次对话
-
-我就直接把我本地配置的模型给到它了，需要一个推理模型，一个视觉模型，格式如下：
-
-```
+```yaml
 # 心流视觉模型
-      iflow_qwen3-vl-plus:
-        alias: 心流 Qwen3-VL-Plus
-        model_provider: openai
-        model: qwen3-vl-plus
-        base_url: https://apis.iflow.cn/v1/chat/completions
-        api_key: sk-xxxxxxxxxxxxxxxxxxxx
-      # 心流deepseek-v3模型
-      iflow_deepseek-v3:
-        alias: 心流 deepseek-v3
-        model_provider: openai
-        model: deepseek-v3
-        base_url: https://apis.iflow.cn/v1/chat/completions
-        api_key: sk-xxxxxxxxxxxxxxxxx
+iflow_qwen3-vl-plus:
+  alias: 心流 Qwen3-VL-Plus
+  model_provider: openai
+  model: qwen3-vl-plus
+  base_url: https://apis.iflow.cn/v1/chat/completions
+  api_key: sk-xxxxxxxxxxxxxxxxxxxx
+
+# 心流 deepseek-v3 模型
+iflow_deepseek-v3:
+  alias: 心流 deepseek-v3
+  model_provider: openai
+  model: deepseek-v3
+  base_url: https://apis.iflow.cn/v1/chat/completions
+  api_key: sk-xxxxxxxxxxxxxxxxx
 ```
 
 ![image-20260323111301691](./assets/image-20260323111301691.png)
 
-
-
-
-
-最终结果：
+补完这部分以后，AI 会继续完成剩余部署动作。
 
 ![image-20260323111328401](./assets/image-20260323111328401.png)
 
+## 部署完成后的验证入口
 
+部署完成后，当时的访问地址如下：
 
-## 验证
-
-```
-  当前访问地址
-
-  - runtime-service: http://127.0.0.1:8123
-  - platform-api: http://127.0.0.1:2024
-  - runtime-web: http://127.0.0.1:3001
-  - platform-web: http://127.0.0.1:3002
+```text
+runtime-service: http://127.0.0.1:8123
+platform-api:    http://127.0.0.1:2024
+runtime-web:     http://127.0.0.1:3001
+platform-web:    http://127.0.0.1:3002
 ```
 
+## 验证 1：直连 runtime-web
 
+先走最直接的验证路径：
 
-
-
-### 直连langgraph 验证
-
-```
+```text
 runtime-web: http://127.0.0.1:3001
 ```
 
-
-
-根据上面提供的链接我们打开，然后对话验证
+打开页面后直接对话验证：
 
 ![image-20260323111452697](./assets/image-20260323111452697.png)
 
+## 验证 2：验证平台前端
 
+再验证平台层：
 
-### 平台前端验证
-
-```
+```text
 platform-web: http://127.0.0.1:3002
-
-账号是 `admin / admin123456`
+账号：admin / admin123456
 ```
 
 ![image-20260323111858136](./assets/image-20260323111858136.png)
 
-进入后
+进入后：
 
 ![image-20260323111915334](./assets/image-20260323111915334.png)
 
-
-
-对话
+对话验证：
 
 ![image-20260323112004280](./assets/image-20260323112004280.png)
 
+## 这次实践可以复用什么
 
+这次最大的收获不是某一条命令，而是一种方法：
 
-其他的一些平台功能，我在未来的某个时间段在介绍吧
+- 把部署步骤沉淀成项目文档或 AI 指令。
+- 让 AI 先按说明执行，再根据缺口补配置。
+- 把验证入口提前整理好，避免部署完不知道怎么验。
 
+如果这套方法稳定下来，后面很多重复性的环境搭建、初始化配置、基础验证，都可以交给 AI 先做一遍，人只需要做关键确认和结果验收。
 
+## 注意点
+
+- 模型配置、密钥等敏感信息不要提交到仓库。
+- 文中的地址和端口是这次记录里的结果，后续以项目实际配置为准。
+- 这篇文章主要记录“AI 辅助部署”的方法论，平台其他功能后面还可以继续单独展开。
 
 
 
