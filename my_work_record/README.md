@@ -21,6 +21,7 @@
 
 - 返回仓库首页：[`../README.md`](../README.md)
 - 主线项目源码：<https://github.com/ljxpython/ai-agent-test-platform>
+- 开发范式总览：[`20260325_project_development_paradigm.md`](./20260325_project_development_paradigm.md)
 - 部署与验证入口：[`20260323_deployment_environment.md`](./20260323_deployment_environment.md)
 - 单智能体案例：[`20260312_texttosql_rd.md`](./20260312_texttosql_rd.md)
 - 多智能体案例：[`20260314_requirement_agent_rd.md`](./20260314_requirement_agent_rd.md)
@@ -42,6 +43,12 @@
 1. 先看 [`20260323_deployment_environment.md`](./20260323_deployment_environment.md)。
 2. 把环境、依赖和验证入口先跑通。
 3. 跑通之后再决定要继续看单智能体，还是直接看复杂场景。
+
+### 如果你想先搞懂这个项目为什么这么设计
+
+1. 先看主仓库 README，知道系统版图。
+2. 再看 [`20260325_project_development_paradigm.md`](./20260325_project_development_paradigm.md)。
+3. 这篇主要补“平台侧为什么浅封装、为什么要功能解耦、后面应该按什么节奏继续开发”。
 
 ### 如果你想看一个最小可行 Agent 是怎么接进平台的
 
