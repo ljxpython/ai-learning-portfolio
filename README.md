@@ -81,6 +81,7 @@
 
 | 日期 | 主题 | 内容简介 | 文档 |
 |---|---|---|---|
+| 2026-03-30 | 测试用例平台闭环优化 | 记录测试用例链路如何从 Skills 编排、结果落库一路接到 platform-api 和 platform-web 工作区 | [`20260330_requirement_optimize.md`](./my_work_record/20260330_requirement_optimize.md) |
 | 2026-03-23 | AI 辅助部署环境 | 用两轮对话完成环境部署，并整理验证入口 | [`20260323_deployment_environment.md`](./my_work_record/20260323_deployment_environment.md) |
 | 2026-03-14 | 需求分析多智能体 | 从需求文档解析、评审到落库，梳理复杂场景的设计思路 | [`20260314_requirement_agent_rd.md`](./my_work_record/20260314_requirement_agent_rd.md) |
 | 2026-03-12 | Text-to-SQL 智能体 | 记录从阅读代码、设计方案到前后端接入的完整实践 | [`20260312_texttosql_rd.md`](./my_work_record/20260312_texttosql_rd.md) |
@@ -98,6 +99,7 @@
 1. 先从 [`my_work_record/README.md`](./my_work_record/README.md) 进入。
 2. 再看部署文档，先把环境和验证入口跑通。
 3. 然后看 Text-to-SQL 和需求分析多智能体两个案例，理解从单智能体到复杂场景的设计方法。
+4. 最后看测试用例平台闭环优化，补齐从运行时方案到平台接入、真实联调的收口过程。
 
 ## 仓库定位说明
 

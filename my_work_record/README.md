@@ -25,16 +25,18 @@
 - 部署与验证入口：[`20260323_deployment_environment.md`](./20260323_deployment_environment.md)
 - 单智能体案例：[`20260312_texttosql_rd.md`](./20260312_texttosql_rd.md)
 - 多智能体案例：[`20260314_requirement_agent_rd.md`](./20260314_requirement_agent_rd.md)
+- 测试用例平台闭环：[`20260330_requirement_optimize.md`](./20260330_requirement_optimize.md)
 
 ## 实践主线
 
-这组记录目前可以理解成一条从“先跑起来”到“做复杂场景”的连续主线：
+这组记录目前可以理解成一条从“先跑起来”到“做复杂场景”，再到“把复杂场景真正接成平台能力”的连续主线：
 
 | 阶段 | 主题 | 你能得到什么 | 文档 |
 |---|---|---|---|
 | 第一步 | 部署与验证基线 | 一套用 AI 辅助完成环境部署、问题排查和结果验证的路径 | [`20260323_deployment_environment.md`](./20260323_deployment_environment.md) |
 | 第二步 | 单智能体最小闭环 | 一个从阅读代码、讨论方案到接入图表 MCP 的最小可运行案例 | [`20260312_texttosql_rd.md`](./20260312_texttosql_rd.md) |
 | 第三步 | 复杂业务多智能体 | 一个把上传文档、解析、评审、落库串起来的复杂场景拆解方案 | [`20260314_requirement_agent_rd.md`](./20260314_requirement_agent_rd.md) |
+| 第四步 | 测试用例平台闭环优化 | 一条从 Skills 编排、interaction-data-service 落库，到 platform-api / platform-web 工作区接入的完整收口记录 | [`20260330_requirement_optimize.md`](./20260330_requirement_optimize.md) |
 
 ## 按目标阅读
 
@@ -62,6 +64,12 @@
 2. 然后直接看 [`20260314_requirement_agent_rd.md`](./20260314_requirement_agent_rd.md)。
 3. 这篇更关注复杂业务流转、职责边界和后续演进，不是入门案例。
 
+### 如果你想看测试用例链路怎么真正落到平台里
+
+1. 先补 [`20260314_requirement_agent_rd.md`](./20260314_requirement_agent_rd.md)，知道复杂场景最初是怎么拆的。
+2. 再看 [`20260330_requirement_optimize.md`](./20260330_requirement_optimize.md)。
+3. 这篇更关注 Skills 编排、结果域服务、平台工作区接入和真实联调，不只是设计草图。
+
 ### 如果你想做完整复盘
 
 按下面顺序看最顺：
@@ -69,6 +77,7 @@
 1. [`20260323_deployment_environment.md`](./20260323_deployment_environment.md)
 2. [`20260312_texttosql_rd.md`](./20260312_texttosql_rd.md)
 3. [`20260314_requirement_agent_rd.md`](./20260314_requirement_agent_rd.md)
+4. [`20260330_requirement_optimize.md`](./20260330_requirement_optimize.md)
 
 这样能看到从部署准备、单点能力接入，到复杂场景设计的完整脉络。
 
